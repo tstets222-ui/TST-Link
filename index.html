@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>營運工具導航 | 視覺化控制中心</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #f0f4f8;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0e7ff 0%, #eff6ff 50%, #f0fdf4 100%);
+            background-attachment: fixed;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            padding: 2rem 1.5rem;
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* 頁眉區域 - 橫幅設計 */
+        .header {
+            background: linear-gradient(to right, #1e3a8a, #3b82f6);
+            border-radius: 24px;
+            padding: 3rem 2rem;
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 橫幅裝飾背景 */
+        .header::after {
+            content: "\f00a"; /* FontAwesome grid icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            right: -20px;
+            top: -40px;
+            font-size: 15rem;
+            opacity: 0.1;
+            transform: rotate(15deg);
+        }
+
+        .header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* 分類區塊 */
+        .category-section {
+            margin-bottom: 3.5rem;
+        }
+
+        .category-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: #0f172a;
+            padding-left: 1rem;
+            border-left: 5px solid var(--primary);
+        }
+
+        .category-title i {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            background: #e2e8f0;
+            color: #475569;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        /* 應用程式網格 (App Grid) */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* 工具卡片 (App Icon Style) */
+        .app-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #60a5fa, #3b82f6);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+            background: #ffffff;
+            border-color: #bfdbfe;
+        }
+
+        .app-card:hover::before {
+            opacity: 1;
+        }
+
+        /* 圖示設計 */
+        .app-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin-bottom: 1.2rem;
+            color: white;
+            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.1), 0 8px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .app-card:hover .app-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* 依照不同屬性設定圖示漸層色 */
+        .icon-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
+        .icon-green { background: linear-gradient(135deg, #10b981, #047857); }
+        .icon-purple { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+        .icon-orange { background: linear-gradient(135deg, #f59e0b, #b45309); }
+        .icon-red { background: linear-gradient(135deg, #ef4444, #b91c1c); }
+        .icon-teal { background: linear-gradient(135deg, #14b8a6, #0f766e); }
+        .icon-gray { background: linear-gradient(135deg, #64748b, #334155); }
+
+        .app-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            line-height: 1.3;
+        }
+
+        .app-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* 子分類特殊設計 (Incident handling) */
+        .sub-category-wrapper {
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px dashed #cbd5e1;
+            margin-bottom: 2rem;
+        }
+
+        .sub-category-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* 底部註腳 */
+        .footer-note {
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            padding-bottom: 2rem;
+        }
+
+        /* 行動裝置適應 */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .app-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+            .app-card { padding: 1.5rem 1rem; }
+            .app-icon { width: 55px; height: 55px; font-size: 1.8rem; }
+            .sub-category-wrapper { padding: 1.5rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>營運綜合導航中心</h1>
+        <p>點擊圖示即可快速啟動對應工具模組</p>
+    </div>
+
+    <div class="category-section">
+        <div class="category-title">
+            <i class="fa-solid fa-magnifying-glass-chart"></i> 
+            1. Station Inspection <span class="badge">巡檢工具</span>
+        </div>
+        <div class="app-grid">
+            <a class="app-card" href="https://tst-roster-c62b2.web.app/" target="_blank">
+                <div class="app-icon icon-blue"><i class="fa-solid fa-clipboard-check"></i></div>
+                <div class="app-name">OIS Inspection</div>
+                <div class="app-desc">車站巡檢系統</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="category-section">
+        <div class="category-title">
+            <i class="fa-solid fa-chart-pie"></i> 
+            2. Analysis <span class="badge">數據分析</span>
+        </div>
+        <div class="app-grid">
+            <a class="app-card" href="https://mtr-traffic-analysis.web.app/" target="_blank">
+                <div class="app-icon icon-purple"><i class="fa-solid fa-people-group"></i></div>
+                <div class="app-name">Passenger Flow</div>
+                <div class="app-desc">客流量分析</div>
+            </a>
+            <a class="app-card" href="https://escalator-accident.web.app/" target="_blank">
+                <div class="app-icon icon-orange"><i class="fa-solid fa-stairs"></i></div>
+                <div class="app-name">Escalator Accident</div>
+                <div class="app-desc">扶手電梯事故分析</div>
+            </a>
+            <a class="app-card" href="https://cuc-question.web.app/" target="_blank">
+                <div class="app-icon icon-teal"><i class="fa-solid fa-clipboard-question"></i></div>
+                <div class="app-name">CUC Question</div>
+                <div class="app-desc">客用問題統計</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="category-section">
+        <div class="category-title">
+            <i class="fa-regular fa-building"></i> 
+            3. Station Management <span class="badge">站務管理</span>
+        </div>
+        <div class="app-grid">
+            <a class="app-card" href="http://cleaner-inspection.web.app/" target="_blank">
+                <div class="app-icon icon-green"><i class="fa-solid fa-broom"></i></div>
+                <div class="app-name">Cleaner Inspection</div>
+                <div class="app-desc">清潔查驗紀錄</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="category-section">
+        <div class="category-title">
+            <i class="fa-solid fa-triangle-exclamation"></i> 
+            4. Incident Handling <span class="badge">事件處置</span>
+        </div>
+        
+        <div class="sub-category-wrapper">
+            <div class="app-grid" style="margin-bottom: 2rem;">
+                <a class="app-card" href="https://pa-generator.web.app/" target="_blank">
+                    <div class="app-icon icon-gray"><i class="fa-solid fa-bullhorn"></i></div>
+                    <div class="app-name">PA Generator</div>
+                    <div class="app-desc">PI | 公共廣播</div>
+                </a>
+                <a class="app-card" href="https://pilotman-working.web.app/" target="_blank">
+                    <div class="app-icon icon-red"><i class="fa-solid fa-fire-extinguisher"></i></div>
+                    <div class="app-name">Fire Point Search</div>
+                    <div class="app-desc">Fire | 消防應急</div>
+                </a>
+                <a class="app-card" href="https://mtr-station-map.web.app/" target="_blank">
+                    <div class="app-icon icon-blue"><i class="fa-solid fa-map-location-dot"></i></div>
+                    <div class="app-name">QS Guide</div>
+                    <div class="app-desc">QS | 品質安全</div>
+                </a>
+            </div>
+
+            <hr style="border: 0; border-top: 1px dashed #cbd5e1; margin: 2rem 0;">
+
+            <div class="sub-category-title"><i class="fa-solid fa-train-tram"></i> Pilotman Working (行車日誌)</div>
+            <div class="app-grid">
+                <a class="app-card" href="https://tstets222-ui.github.io/Pilotman-working-HSM-log/" target="_blank">
+                    <div class="app-icon icon-orange"><i class="fa-solid fa-book-journal-whills"></i></div>
+                    <div class="app-name">HSM Log Sheet</div>
+                    <div class="app-desc">手動切換日誌</div>
+                </a>
+                <a class="app-card" href="https://tstets222-ui.github.io/pilotman-log/" target="_blank">
+                    <div class="app-icon icon-orange"><i class="fa-solid fa-clipboard-list"></i></div>
+                    <div class="app-name">Control Sheet</div>
+                    <div class="app-desc">控制管制單</div>
+                </a>
+                <a class="app-card" href="https://tstets222-ui.github.io/Train-register/" target="_blank">
+                    <div class="app-icon icon-orange"><i class="fa-solid fa-train"></i></div>
+                    <div class="app-name">Train Register</div>
+                    <div class="app-desc">列車登記表</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        <i class="fa-solid fa-bolt" style="color: #fbbf24;"></i> 視覺化管理面板 v2.0 · 點擊圖示開啟新分頁
+    </div>
+</div>
+
+</body>
+</html>
