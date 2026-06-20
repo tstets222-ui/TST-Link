@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>TST Link導航 </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>TST Link導航</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
+        /* ===== 變數與全域 ===== */
         :root {
             --bg-color: #f0f4f8;
             --card-bg: rgba(255, 255, 255, 0.85);
@@ -32,13 +33,12 @@
             min-height: 100vh;
         }
 
-        /* 主容器 */
         .container {
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* 頁眉區域 - 橫幅設計 */
+        /* ===== 頁眉橫幅 ===== */
         .header {
             background: linear-gradient(to right, #1e3a8a, #3b82f6);
             border-radius: 24px;
@@ -50,10 +50,9 @@
             position: relative;
             overflow: hidden;
         }
-        
-        /* 橫幅裝飾背景 */
+
         .header::after {
-            content: "\f00a"; /* FontAwesome grid icon */
+            content: "\f00a";
             font-family: "Font Awesome 6 Free";
             font-weight: 900;
             position: absolute;
@@ -69,9 +68,9 @@
             font-weight: 800;
             margin-bottom: 0.5rem;
             letter-spacing: 1px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-        
+
         .header p {
             font-size: 1.1rem;
             opacity: 0.9;
@@ -80,7 +79,7 @@
             font-weight: 300;
         }
 
-        /* 分類區塊 */
+        /* ===== 分類區塊 ===== */
         .category-section {
             margin-bottom: 3.5rem;
         }
@@ -91,7 +90,8 @@
             margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            flex-wrap: wrap;
+            gap: 0.6rem 0.8rem;
             color: #0f172a;
             padding-left: 1rem;
             border-left: 5px solid var(--primary);
@@ -109,17 +109,29 @@
             padding: 0.3rem 0.8rem;
             border-radius: 20px;
             font-weight: 600;
-            margin-left: 0.5rem;
+            margin-left: 0.2rem;
         }
 
-        /* 應用程式網格 (App Grid) */
+        /* 在分類標題中新增的「標籤」樣式（與 badge 區分，更醒目） */
+        .badge-tag {
+            font-size: 0.75rem;
+            background: #dbeafe;
+            color: #1d4ed8;
+            padding: 0.25rem 0.9rem;
+            border-radius: 20px;
+            font-weight: 700;
+            border: 1px solid #93c5fd;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== 應用程式網格 ===== */
         .app-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 1.5rem;
         }
 
-        /* 工具卡片 (App Icon Style) */
+        /* ===== 工具卡片 ===== */
         .app-card {
             background: var(--card-bg);
             backdrop-filter: blur(10px);
@@ -162,7 +174,7 @@
             opacity: 1;
         }
 
-        /* 圖示設計 */
+        /* ===== 圖示 ===== */
         .app-icon {
             width: 70px;
             height: 70px;
@@ -173,7 +185,7 @@
             font-size: 2.2rem;
             margin-bottom: 1.2rem;
             color: white;
-            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.1), 0 8px 15px rgba(0,0,0,0.1);
+            box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.1), 0 8px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
 
@@ -181,14 +193,35 @@
             transform: scale(1.1) rotate(5deg);
         }
 
-        /* 依照不同屬性設定圖示漸層色 */
-        .icon-blue { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-        .icon-green { background: linear-gradient(135deg, #10b981, #047857); }
-        .icon-purple { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
-        .icon-orange { background: linear-gradient(135deg, #f59e0b, #b45309); }
-        .icon-red { background: linear-gradient(135deg, #ef4444, #b91c1c); }
-        .icon-teal { background: linear-gradient(135deg, #14b8a6, #0f766e); }
-        .icon-gray { background: linear-gradient(135deg, #64748b, #334155); }
+        /* 漸層色 */
+        .icon-blue {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+        }
+        .icon-green {
+            background: linear-gradient(135deg, #10b981, #047857);
+        }
+        .icon-purple {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+        }
+        .icon-orange {
+            background: linear-gradient(135deg, #f59e0b, #b45309);
+        }
+        .icon-red {
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+        }
+        .icon-teal {
+            background: linear-gradient(135deg, #14b8a6, #0f766e);
+        }
+        .icon-gray {
+            background: linear-gradient(135deg, #64748b, #334155);
+        }
+        /* 為 Roster 新增的色系 */
+        .icon-indigo {
+            background: linear-gradient(135deg, #6366f1, #4338ca);
+        }
+        .icon-pink {
+            background: linear-gradient(135deg, #ec4899, #be185d);
+        }
 
         .app-name {
             font-size: 1.1rem;
@@ -203,7 +236,7 @@
             font-weight: 500;
         }
 
-        /* 子分類特殊設計 (Incident handling) */
+        /* ===== 子分類包裝 ===== */
         .sub-category-wrapper {
             background: rgba(255, 255, 255, 0.4);
             border-radius: 24px;
@@ -222,7 +255,13 @@
             gap: 0.5rem;
         }
 
-        /* 底部註腳 */
+        hr {
+            border: 0;
+            border-top: 1px dashed #cbd5e1;
+            margin: 2rem 0;
+        }
+
+        /* ===== 底部 ===== */
         .footer-note {
             margin-top: 4rem;
             text-align: center;
@@ -231,157 +270,220 @@
             padding-bottom: 2rem;
         }
 
-        /* 行動裝置適應 */
+        /* ===== RWD ===== */
         @media (max-width: 768px) {
-            .header h1 { font-size: 2rem; }
-            .app-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
-            .app-card { padding: 1.5rem 1rem; }
-            .app-icon { width: 55px; height: 55px; font-size: 1.8rem; }
-            .sub-category-wrapper { padding: 1.5rem 1rem; }
+            .header h1 {
+                font-size: 2rem;
+            }
+            .app-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 1rem;
+            }
+            .app-card {
+                padding: 1.5rem 1rem;
+            }
+            .app-icon {
+                width: 55px;
+                height: 55px;
+                font-size: 1.8rem;
+            }
+            .sub-category-wrapper {
+                padding: 1.5rem 1rem;
+            }
+            .category-title {
+                font-size: 1.3rem;
+                padding-left: 0.6rem;
+            }
+            .badge-tag {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.6rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h1>TST導航中心</h1>
-        <p>點擊圖示即可快速啟動對應工具模組</p>
-    </div>
+    <div class="container">
 
-    <div class="category-section">
-        <div class="category-title">
-            <i class="fa-solid fa-magnifying-glass-chart"></i> 
-            1. Station Inspection <span class="badge">Inspection工具</span>
+        <!-- ===== 頁眉 ===== -->
+        <div class="header">
+            <h1>TST導航中心</h1>
+            <p>點擊圖示即可快速啟動對應工具模組</p>
         </div>
-        <div class="app-grid">
-            <a class="app-card" href="https://tst-roster-c62b2.web.app/" target="_blank">
-                <div class="app-icon icon-blue"><i class="fa-solid fa-clipboard-check"></i></div>
-                <div class="app-name">OIS Inspection</div>
-                <div class="app-desc">車站Inspection系統</div>
-            </a>
-        </div>
-    </div>
 
-    <div class="category-section">
-        <div class="category-title">
-            <i class="fa-solid fa-chart-pie"></i> 
-            2. Analysis <span class="badge">數據分析</span>
-        </div>
-        <div class="app-grid">
-            <a class="app-card" href="https://mtr-traffic-analysis.web.app/" target="_blank">
-                <div class="app-icon icon-purple"><i class="fa-solid fa-people-group"></i></div>
-                <div class="app-name">Passenger Flow</div>
-                <div class="app-desc">客流量分析</div>
-            </a>
-            <a class="app-card" href="https://escalator-accident.web.app/" target="_blank">
-                <div class="app-icon icon-orange"><i class="fa-solid fa-stairs"></i></div>
-                <div class="app-name">Escalator Accident</div>
-                <div class="app-desc">扶手電梯事故分析</div>
-            </a>
-            <a class="app-card" href="https://cuc-question.web.app/" target="_blank">
-                <div class="app-icon icon-teal"><i class="fa-solid fa-clipboard-question"></i></div>
-                <div class="app-name">CUC Question</div>
-                <div class="app-desc">CUC問題統計</div>
-            </a>
-        </div>
-    </div>
-
-    <div class="category-section">
-        <div class="category-title">
-            <i class="fa-regular fa-building"></i> 
-            3. Station Management <span class="badge">站務管理</span>
-        </div>
-        <div class="app-grid">
-            <a class="app-card" href="http://cleaner-inspection.web.app/" target="_blank">
-                <div class="app-icon icon-green"><i class="fa-solid fa-broom"></i></div>
-                <div class="app-name">Cleaner Inspection</div>
-                <div class="app-desc">清潔查驗紀錄</div>
-            </a>
-        </div>
-    </div>
-
-    <div class="category-section">
-        <div class="category-title">
-            <i class="fa-solid fa-triangle-exclamation"></i> 
-            4. Incident Handling <span class="badge">事件處置</span>
-        </div>
-        
-        <div class="sub-category-wrapper">
-            <div class="app-grid" style="margin-bottom: 2rem;">
-                <a class="app-card" href="https://pa-generator.web.app/" target="_blank">
-                    <div class="app-icon icon-gray"><i class="fa-solid fa-bullhorn"></i></div>
-                    <div class="app-name">PA Generator</div>
-                    <div class="app-desc">PI | 公共廣播</div>
-                </a>
-                <a class="app-card" href="https://pilotman-working.web.app/" target="_blank">
-                    <div class="app-icon icon-red"><i class="fa-solid fa-fire-extinguisher"></i></div>
-                    <div class="app-name">Fire Point Search</div>
-                    <div class="app-desc">Fire | 消防應急</div>
-                </a>
-                <a class="app-card" href="https://mtr-station-map.web.app/" target="_blank">
-                    <div class="app-icon icon-blue"><i class="fa-solid fa-map-location-dot"></i></div>
-                    <div class="app-name">QS Guide</div>
-                    <div class="app-desc">QS | 品質安全</div>
-                </a>
+        <!-- ===== 1. Station Inspection ===== -->
+        <div class="category-section">
+            <div class="category-title">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+                1. Station Inspection
+                <span class="badge">Inspection工具</span>
             </div>
-
-            <hr style="border: 0; border-top: 1px dashed #cbd5e1; margin: 2rem 0;">
-
-            <div class="sub-category-title"><i class="fa-solid fa-train-tram"></i> Pilotman Working (行車日誌)</div>
             <div class="app-grid">
-                <a class="app-card" href="https://tstets222-ui.github.io/Pilotman-working-HSM-log/" target="_blank">
-                    <div class="app-icon icon-orange"><i class="fa-solid fa-book-journal-whills"></i></div>
-                    <div class="app-name">HSM Log Sheet</div>
-                    <div class="app-desc">Pilotman Working  Log Sheet</div>
-                </a>
-                <a class="app-card" href="https://tstets222-ui.github.io/pilotman-log/" target="_blank">
-                    <div class="app-icon icon-orange"><i class="fa-solid fa-clipboard-list"></i></div>
-                    <div class="app-name">Control Sheet</div>
-                    <div class="app-desc">Pilotman Control Sheet</div>
-                </a>
-                <a class="app-card" href="https://tstets222-ui.github.io/Train-register/" target="_blank">
-                    <div class="app-icon icon-orange"><i class="fa-solid fa-train"></i></div>
-                    <div class="app-name">Train Register</div>
-                    <div class="app-desc">列車登記表</div>
+                <a class="app-card" href="https://tst-roster-c62b2.web.app/" target="_blank">
+                    <div class="app-icon icon-blue"><i class="fa-solid fa-clipboard-check"></i></div>
+                    <div class="app-name">OIS Inspection</div>
+                    <div class="app-desc">車站Inspection系統</div>
                 </a>
             </div>
-
-            <!-- 新增的事件報告表單區塊開始 -->
-            <hr style="border: 0; border-top: 1px dashed #cbd5e1; margin: 2rem 0;">
-
-            <div class="sub-category-title"><i class="fa-solid fa-file-signature"></i> Incident Reports (事件報告)</div>
-            <div class="app-grid">
-                <a class="app-card" href="https://tstets222-ui.github.io/Suspect-person/" target="_blank">
-                    <div class="app-icon icon-gray"><i class="fa-solid fa-user-secret"></i></div>
-                    <div class="app-name">Suspect Person</div>
-                    <div class="app-desc">可疑人士資料表</div>
-                </a>
-                <a class="app-card" href="https://tstets222-ui.github.io/Boom-CBRN-phone-call/" target="_blank">
-                    <div class="app-icon icon-red"><i class="fa-solid fa-bomb"></i></div>
-                    <div class="app-name">Bomb/CBRN</div>
-                    <div class="app-desc">炸彈/可疑氣體恐嚇</div>
-                </a>
-                <a class="app-card" href="https://tstets222-ui.github.io/Pickup-FSD/" target="_blank">
-                    <div class="app-icon icon-red"><i class="fa-solid fa-fire"></i></div>
-                    <div class="app-name">Fire Briefing</div>
-                    <div class="app-desc">消防火警簡述表</div>
-                </a>
-                <a class="app-card" href="https://tstets222-ui.github.io/lost-person/" target="_blank">
-                    <div class="app-icon icon-blue"><i class="fa-solid fa-person-circle-question"></i></div>
-                    <div class="app-name">Lost Person</div>
-                    <div class="app-desc">失蹤人士資料表</div>
-                </a>
-            </div>
-            <!-- 新增的事件報告表單區塊結束 -->
-
         </div>
-    </div>
 
-    <div class="footer-note">
-        <i class="fa-solid fa-bolt" style="color: #fbbf24;"></i> TST App管理面板 v2.0 · 點擊圖示開啟新分頁
+        <!-- ===== 2. Analysis ===== -->
+        <div class="category-section">
+            <div class="category-title">
+                <i class="fa-solid fa-chart-pie"></i>
+                2. Analysis
+                <span class="badge">數據分析</span>
+            </div>
+            <div class="app-grid">
+                <a class="app-card" href="https://mtr-traffic-analysis.web.app/" target="_blank">
+                    <div class="app-icon icon-purple"><i class="fa-solid fa-people-group"></i></div>
+                    <div class="app-name">Passenger Flow</div>
+                    <div class="app-desc">客流量分析</div>
+                </a>
+                <a class="app-card" href="https://escalator-accident.web.app/" target="_blank">
+                    <div class="app-icon icon-orange"><i class="fa-solid fa-stairs"></i></div>
+                    <div class="app-name">Escalator Accident</div>
+                    <div class="app-desc">扶手電梯事故分析</div>
+                </a>
+                <a class="app-card" href="https://cuc-question.web.app/" target="_blank">
+                    <div class="app-icon icon-teal"><i class="fa-solid fa-clipboard-question"></i></div>
+                    <div class="app-name">CUC Question</div>
+                    <div class="app-desc">CUC問題統計</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ===== 3. Station Management （已加入 Roster 與 SA Roster） ===== -->
+        <div class="category-section">
+            <div class="category-title">
+                <i class="fa-regular fa-building"></i>
+                3. Station Management
+                <span class="badge">站務管理</span>
+                <!-- 新加入的 Roster 與 SA Roster 標籤（視覺標示） -->
+                <span class="badge-tag"><i class="fa-regular fa-calendar"></i> Roster</span>
+                <span class="badge-tag"><i class="fa-regular fa-calendar-check"></i> SA Roster</span>
+            </div>
+            <div class="app-grid">
+                <!-- 原有：Cleaner Inspection -->
+                <a class="app-card" href="http://cleaner-inspection.web.app/" target="_blank">
+                    <div class="app-icon icon-green"><i class="fa-solid fa-broom"></i></div>
+                    <div class="app-name">Cleaner Inspection</div>
+                    <div class="app-desc">清潔查驗紀錄</div>
+                </a>
+
+                <!-- 新增：Roster -->
+                <!--
+                    連結目前指向現有的 roster 服務；若實際網址不同，請直接修改 href。
+                    若此工具與 OIS Inspection 共用同一系統但不同頁面，可改為：
+                    https://tst-roster-c62b2.web.app/roster
+                -->
+                <a class="app-card" href="https://roster-b6ab1.web.app/" target="_blank">
+                    <div class="app-icon icon-indigo"><i class="fa-regular fa-calendar"></i></div>
+                    <div class="app-name">Roster</div>
+                    <div class="app-desc">人員排班表</div>
+                </a>
+
+                <!-- 新增：SA Roster -->
+                <!--
+                    因未提供具體 URL，此處使用推測連結 (GitHub Pages 風格)。
+                    若實際網址不同，請直接修改 href。
+                    可能的替代路徑：
+                    - https://tstets222-ui.github.io/sa-roster/
+                    - https://tst-roster-c62b2.web.app/sa
+                -->
+                <a class="app-card" href="https://ets-sa.web.app/" target="_blank">
+                    <div class="app-icon icon-pink"><i class="fa-regular fa-calendar-check"></i></div>
+                    <div class="app-name">SA Roster</div>
+                    <div class="app-desc">SA排班表</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ===== 4. Incident Handling ===== -->
+        <div class="category-section">
+            <div class="category-title">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                4. Incident Handling
+                <span class="badge">事件處置</span>
+            </div>
+
+            <div class="sub-category-wrapper">
+                <!-- 第一組：PA / Fire / QS -->
+                <div class="app-grid" style="margin-bottom: 2rem;">
+                    <a class="app-card" href="https://pa-generator.web.app/" target="_blank">
+                        <div class="app-icon icon-gray"><i class="fa-solid fa-bullhorn"></i></div>
+                        <div class="app-name">PA Generator</div>
+                        <div class="app-desc">PI | 公共廣播</div>
+                    </a>
+                    <a class="app-card" href="https://pilotman-working.web.app/" target="_blank">
+                        <div class="app-icon icon-red"><i class="fa-solid fa-fire-extinguisher"></i></div>
+                        <div class="app-name">Fire Point Search</div>
+                        <div class="app-desc">Fire | 消防應急</div>
+                    </a>
+                    <a class="app-card" href="https://mtr-station-map.web.app/" target="_blank">
+                        <div class="app-icon icon-blue"><i class="fa-solid fa-map-location-dot"></i></div>
+                        <div class="app-name">QS Guide</div>
+                        <div class="app-desc">QS | 品質安全</div>
+                    </a>
+                </div>
+
+                <hr />
+
+                <!-- 第二組：Pilotman Working -->
+                <div class="sub-category-title"><i class="fa-solid fa-train-tram"></i> Pilotman Working (行車日誌)</div>
+                <div class="app-grid">
+                    <a class="app-card" href="https://tstets222-ui.github.io/Pilotman-working-HSM-log/" target="_blank">
+                        <div class="app-icon icon-orange"><i class="fa-solid fa-book-journal-whills"></i></div>
+                        <div class="app-name">HSM Log Sheet</div>
+                        <div class="app-desc">Pilotman Working Log Sheet</div>
+                    </a>
+                    <a class="app-card" href="https://tstets222-ui.github.io/pilotman-log/" target="_blank">
+                        <div class="app-icon icon-orange"><i class="fa-solid fa-clipboard-list"></i></div>
+                        <div class="app-name">Control Sheet</div>
+                        <div class="app-desc">Pilotman Control Sheet</div>
+                    </a>
+                    <a class="app-card" href="https://tstets222-ui.github.io/Train-register/" target="_blank">
+                        <div class="app-icon icon-orange"><i class="fa-solid fa-train"></i></div>
+                        <div class="app-name">Train Register</div>
+                        <div class="app-desc">列車登記表</div>
+                    </a>
+                </div>
+
+                <hr />
+
+                <!-- 第三組：Incident Reports -->
+                <div class="sub-category-title"><i class="fa-solid fa-file-signature"></i> Incident Reports (事件報告)</div>
+                <div class="app-grid">
+                    <a class="app-card" href="https://tstets222-ui.github.io/Suspect-person/" target="_blank">
+                        <div class="app-icon icon-gray"><i class="fa-solid fa-user-secret"></i></div>
+                        <div class="app-name">Suspect Person</div>
+                        <div class="app-desc">可疑人士資料表</div>
+                    </a>
+                    <a class="app-card" href="https://tstets222-ui.github.io/Boom-CBRN-phone-call/" target="_blank">
+                        <div class="app-icon icon-red"><i class="fa-solid fa-bomb"></i></div>
+                        <div class="app-name">Bomb/CBRN</div>
+                        <div class="app-desc">炸彈/可疑氣體恐嚇</div>
+                    </a>
+                    <a class="app-card" href="https://tstets222-ui.github.io/Pickup-FSD/" target="_blank">
+                        <div class="app-icon icon-red"><i class="fa-solid fa-fire"></i></div>
+                        <div class="app-name">Fire Briefing</div>
+                        <div class="app-desc">消防火警簡述表</div>
+                    </a>
+                    <a class="app-card" href="https://tstets222-ui.github.io/lost-person/" target="_blank">
+                        <div class="app-icon icon-blue"><i class="fa-solid fa-person-circle-question"></i></div>
+                        <div class="app-name">Lost Person</div>
+                        <div class="app-desc">失蹤人士資料表</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== 底部 ===== -->
+        <div class="footer-note">
+            <i class="fa-solid fa-bolt" style="color: #fbbf24;"></i> TST App管理面板 v2.0 · 點擊圖示開啟新分頁
+        </div>
+
     </div>
-</div>
 
 </body>
 </html>
