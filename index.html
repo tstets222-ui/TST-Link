@@ -305,13 +305,11 @@
 
     <div class="container">
 
-        <!-- ===== 頁眉 ===== -->
         <div class="header">
             <h1>TST導航中心</h1>
             <p>點擊圖示即可快速啟動對應工具模組</p>
         </div>
 
-        <!-- ===== 1. Station Inspection ===== -->
         <div class="category-section">
             <div class="category-title">
                 <i class="fa-solid fa-magnifying-glass-chart"></i>
@@ -324,10 +322,14 @@
                     <div class="app-name">OIS Inspection</div>
                     <div class="app-desc">車站Inspection系統</div>
                 </a>
+                <a class="app-card" href="http://tstets222-ui.github.io/station-kiosk/" target="_blank">
+                    <div class="app-icon icon-teal"><i class="fa-solid fa-store"></i></div>
+                    <div class="app-name">Station Kiosk Map</div>
+                    <div class="app-desc">車站Kiosk地圖</div>
+                </a>
             </div>
         </div>
 
-        <!-- ===== 2. Analysis ===== -->
         <div class="category-section">
             <div class="category-title">
                 <i class="fa-solid fa-chart-pie"></i>
@@ -353,44 +355,27 @@
             </div>
         </div>
 
-        <!-- ===== 3. Station Management （已加入 Roster 與 SA Roster） ===== -->
         <div class="category-section">
             <div class="category-title">
                 <i class="fa-regular fa-building"></i>
                 3. Station Management
                 <span class="badge">站務管理</span>
-                <!-- 新加入的 Roster 與 SA Roster 標籤（視覺標示） -->
                 <span class="badge-tag"><i class="fa-regular fa-calendar"></i> Roster</span>
                 <span class="badge-tag"><i class="fa-regular fa-calendar-check"></i> SA Roster</span>
             </div>
             <div class="app-grid">
-                <!-- 原有：Cleaner Inspection -->
                 <a class="app-card" href="http://cleaner-inspection.web.app/" target="_blank">
                     <div class="app-icon icon-green"><i class="fa-solid fa-broom"></i></div>
                     <div class="app-name">Cleaner Inspection</div>
                     <div class="app-desc">清潔查驗紀錄</div>
                 </a>
 
-                <!-- 新增：Roster -->
-                <!--
-                    連結目前指向現有的 roster 服務；若實際網址不同，請直接修改 href。
-                    若此工具與 OIS Inspection 共用同一系統但不同頁面，可改為：
-                    https://tst-roster-c62b2.web.app/roster
-                -->
                 <a class="app-card" href="https://roster-b6ab1.web.app/" target="_blank">
                     <div class="app-icon icon-indigo"><i class="fa-regular fa-calendar"></i></div>
                     <div class="app-name">Roster</div>
                     <div class="app-desc">人員排班表</div>
                 </a>
 
-                <!-- 新增：SA Roster -->
-                <!--
-                    因未提供具體 URL，此處使用推測連結 (GitHub Pages 風格)。
-                    若實際網址不同，請直接修改 href。
-                    可能的替代路徑：
-                    - https://tstets222-ui.github.io/sa-roster/
-                    - https://tst-roster-c62b2.web.app/sa
-                -->
                 <a class="app-card" href="https://ets-sa.web.app/" target="_blank">
                     <div class="app-icon icon-pink"><i class="fa-regular fa-calendar-check"></i></div>
                     <div class="app-name">SA Roster</div>
@@ -399,7 +384,6 @@
             </div>
         </div>
 
-        <!-- ===== 4. Incident Handling ===== -->
         <div class="category-section">
             <div class="category-title">
                 <i class="fa-solid fa-triangle-exclamation"></i>
@@ -408,7 +392,6 @@
             </div>
 
             <div class="sub-category-wrapper">
-                <!-- 第一組：PA / Fire / QS -->
                 <div class="app-grid" style="margin-bottom: 2rem;">
                     <a class="app-card" href="https://pa-generator.web.app/" target="_blank">
                         <div class="app-icon icon-gray"><i class="fa-solid fa-bullhorn"></i></div>
@@ -429,7 +412,6 @@
 
                 <hr />
 
-                <!-- 第二組：Pilotman Working -->
                 <div class="sub-category-title"><i class="fa-solid fa-train-tram"></i> Pilotman Working (行車日誌)</div>
                 <div class="app-grid">
                     <a class="app-card" href="https://tstets222-ui.github.io/Pilotman-working-HSM-log/" target="_blank">
@@ -451,7 +433,6 @@
 
                 <hr />
 
-                <!-- 第三組：Incident Reports -->
                 <div class="sub-category-title"><i class="fa-solid fa-file-signature"></i> Incident Reports (事件報告)</div>
                 <div class="app-grid">
                     <a class="app-card" href="https://tstets222-ui.github.io/Suspect-person/" target="_blank">
@@ -478,7 +459,6 @@
             </div>
         </div>
 
-        <!-- ===== 底部 ===== -->
         <div class="footer-note">
             <i class="fa-solid fa-bolt" style="color: #fbbf24;"></i> TST App管理面板 v2.0 · 點擊圖示開啟新分頁
         </div>
